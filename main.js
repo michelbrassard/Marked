@@ -6,6 +6,7 @@ const createWindow = () => {
       width: 800,
       height: 600,
       webPreferences: {
+        // eslint-disable-next-line no-undef
         preload: path.join(__dirname, 'preload.js')
       }
     })
@@ -24,5 +25,6 @@ app.whenReady().then(() => {
 
 //On Windows and Linux, apps close when all the windows are closed
 app.on('window-all-closed', () => {
+    // eslint-disable-next-line no-undef
     if (process.platform !== 'darwin') app.quit()
   })
