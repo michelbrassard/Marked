@@ -1,0 +1,15 @@
+{
+  "name": "marked",
+  "version": "1.0.0",
+  "description": "Simple editor for .md files. A clone of Obsidian with some features from Notion",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "Michel Brassard",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^34.0.2"
+  }
+}
