@@ -15,3 +15,15 @@
 @media (prefers-color-scheme: light) {
   body { background: #fff; color: black; }
 }
+
+#editor {
+  padding: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: #222;
+  border: none;
+  outline: none;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  height: 50%;
+}
