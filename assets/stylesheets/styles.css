@@ -1,11 +1,17 @@
+@font-face {
+  font-family: JetBrainsMono;
+  src: url("../fonts/JetBrainsMono-VariableFont_wght.ttf");
+}
+
 :root {
     color-scheme: light dark;
-  }
+    font-family: JetBrainsMono;
+}
   
-  @media (prefers-color-scheme: dark) {
-    body { background: #333; color: white; }
-  }
+@media (prefers-color-scheme: dark) {
+  body { background: #111; color: white; }
+}
   
-  @media (prefers-color-scheme: light) {
-    body { background: #ddd; color: black; }
-  }
+@media (prefers-color-scheme: light) {
+  body { background: #fff; color: black; }
+}
