@@ -1,6 +1,8 @@
 const editor = document.getElementById("editor");
+var isEditing = false
 
 function parseMarkdown(text) {
+    console.log("from markdown to html")
     text = text.replace(/^(#{1,6})\s+(.*)$/gm, (match, hashes, content) => {
         let level = hashes.length;
         return `<h${level}>${content}</h${level}>`;
@@ -12,33 +14,34 @@ function parseMarkdown(text) {
     return text;
 }
 
-function parseHTML(text) {
-    //parse html to .md
-    return text
+function parseHTML(html) {
+    html = html.replace(/<h([1-6])>(.*?)<\/h\1>/g, (match, level, content) => {
+        return "#".repeat(level) + " " + content;
+    });
+    
+    html = html.replace(/<ul>\s*(<li>.*?<\/li>)\s*<\/ul>/gs, (match, items) => {
+        return items.replace(/<li>(.*?)<\/li>/g, "* $1");
+    });
+    
+    html = html.replace(/<b>(.*?)<\/b>/g, "**$1**"); // Convert bold
+    html = html.replace(/<i>(.*?)<\/i>/g, "*$1*"); // Convert italic
+    html = html.replace(/<code>(.*?)<\/code>/g, "`$1`"); // Convert inline code
+    
+    return html;
 }
 
-editor.addEventListener("input", () => {
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    const caretOffset = range.startOffset;
 
-    const rawText = editor.innerText;
-    editor.innerHTML = parseMarkdown(rawText);
-
-    // Restore cursor position
-    const newRange = document.createRange();
-    newRange.setStart(editor.childNodes[0] || editor, caretOffset);
-    newRange.collapse(true);
-    selection.removeAllRanges();
-    selection.addRange(newRange);
-});
-
-document.getElementById("editor").addEventListener("selectstart", () => {
-    console.log("Select start");
-});
 
 document.getElementById("editor").addEventListener("mouseup", () => {
-    console.log("Mouse up!");
+    const rawText = editor.innerText;
+    if (isEditing) {
+        isEditing = false
+        editor.innerHTML = parseMarkdown(rawText);
+    }
+    else {
+        isEditing = true
+        editor.innerHTML = parseHTML(rawText);
+    }
 });
 
 editor.innerHTML = parseMarkdown("# New note\nStart typing...");
